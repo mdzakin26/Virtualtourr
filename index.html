@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Heritage Gunung Padang - Eksplorasi Arkeologi Interaktif</title>
+    <meta name="description" content="Eksplorasi situs megalitikum tertua dan terbesar di Asia Tenggara melalui teknologi interaktif 3D, rekonstruksi visual, dan pemandu AI pintar.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Premium Loader -->
+    <div id="app-loader" class="app-loader">
+        <div class="loader-content">
+            <h1 class="loader-title">Gunung Padang</h1>
+            <div class="loader-bar-container">
+                <div class="loader-bar"></div>
+            </div>
+            <p class="loader-text">Memuat Pusaka Megalitik Nusantara...</p>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <a href="#beranda" class="logo">
+                <span class="logo-text">Gunung Padang</span>
+            </a>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                <i data-lucide="menu"></i>
+            </button>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="#beranda" class="nav-item active" data-view="beranda">Beranda</a></li>
+                    <li><a href="#tour" class="nav-item" data-view="tour">Virtual Tour</a></li>
+                    <li><a href="#koleksi" class="nav-item" data-view="koleksi">Koleksi</a></li>
+                    <li><a href="#timeline" class="nav-item" data-view="timeline">Timeline</a></li>
+                    <li><a href="#ai-guide" class="nav-item" data-view="ai-guide">AI Guide</a></li>
+                    <li><a href="#kontak" class="nav-item" data-view="kontak">Kontak</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="action-btn search-toggle" aria-label="Cari">
+                    <i data-lucide="search"></i>
+                </button>
+                <div class="search-dropdown hidden">
+                    <input type="text" id="header-search-input" placeholder="Cari koleksi, sejarah...">
+                    <button class="search-submit"><i data-lucide="arrow-right"></i></button>
+                </div>
+                <button class="lang-toggle-btn">ID/EN</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Views Container -->
+    <main class="views-container">
+        
+        <!-- ==================== VIEW: BERANDA ==================== -->
+        <section id="view-beranda" class="app-view active">
+            <!-- Hero Banner -->
+            <div class="hero-section">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <span class="hero-tagline uppercase-spaced">Virtual Heritage</span>
+                    <h2 class="hero-title">Virtual Heritage<br>Gunung Padang</h2>
+                    <p class="hero-desc">
+                        Eksplorasi Situs Megalitikum tertua dan terbesar di Asia Tenggara melalui teknologi interaktif 3D, rekonstruksi visual, dan pemandu AI pintar.
+                    </p>
+                    <div class="hero-actions-container">
+                        <a href="#tour" class="btn btn-primary btn-tour-trigger">Mulai Eksplorasi</a>
+                        <a href="#timeline" class="btn btn-secondary">Pelajari Sejarah</a>
+                    </div>
+                </div>
+                
+                <!-- Quick Stats Grid -->
+                <div class="stats-container">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-value">29 Hektar</span>
+                            <span class="stat-label">Luas Situs</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">5 Tingkat</span>
+                            <span class="stat-label">Jumlah Teras</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">1914</span>
+                            <span class="stat-label">Penemuan Awal</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value">~9500 Tahun</span>
+                            <span class="stat-label">Perkiraan Usia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Presentation Section -->
+            <div class="section-container bg-dark-alt">
+                <div class="container text-center">
+                    <span class="section-tag uppercase-spaced">Dokumenter Eksklusif</span>
+                    <h3 class="section-title text-center">Menyingkap Tabir Sejarah</h3>
+                    <p class="section-subtitle max-w-2xl">Visualisasi sinematik struktur bawah tanah dan misteri di balik pembentukan punden berundak Gunung Padang.</p>
+                    
+                    <div class="video-container">
+                        <div class="video-thumbnail" style="background-image: url('assets/images/tour_bg.png');">
+                            <div class="video-play-overlay">
+                                <button class="play-btn" id="btn-play-video" aria-label="Putar Video">
+                                    <i data-lucide="play"></i>
+                                </button>
+                                <span class="play-text">Masuk Virtual Tour</span>
+                            </div>
+                        </div>
+                        <div class="video-player-wrapper hidden">
+                            <!-- Custom simulated video player or iframe -->
+                            <div class="simulated-player">
+                                <div class="player-loader">
+                                    <div class="spinner"></div>
+                                    <p>Menghubungkan ke Saluran Virtual...</p>
+                                </div>
+                                <div class="player-controls">
+                                    <button class="player-control-btn"><i data-lucide="pause"></i></button>
+                                    <div class="player-progress-bar"><div class="player-progress"></div></div>
+                                    <button class="player-control-btn"><i data-lucide="volume-2"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Map & Location Section -->
+            <div class="section-container">
+                <div class="container grid-2">
+                    <div class="location-info">
+                        <div class="ai-badge flex-row align-center">
+                            <i data-lucide="map-pin" class="text-gold"></i>
+                            <span class="uppercase-spaced">Nalar Padang AI • Asisten Lokasi</span>
+                        </div>
+                        <h3 class="section-title align-left">Situs Megalitik Cianjur</h3>
+                        <p class="desc-text text-muted">
+                            Terletak di Karyamukti, Campaka, Kabupaten Cianjur, Jawa Barat. Gunung Padang adalah punden berundak megalitik terbesar di Asia Tenggara, didirikan pada ketinggian 885 meter di atas permukaan laut.
+                        </p>
+                        <ul class="features-list">
+                            <li><i data-lucide="check" class="text-gold"></i> Koordinat Geografis: 6°59′36″S 107°03′22″E</li>
+                            <li><i data-lucide="check" class="text-gold"></i> Aksesibilitas: 4 jam berkendara dari Jakarta, dilanjutkan pendakian tangga utama</li>
+                            <li><i data-lucide="check" class="text-gold"></i> Pengakuan: Ditetapkan sebagai Situs Cagar Budaya Peringkat Nasional</li>
+                        </ul>
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-secondary mt-6">Buka Google Maps <i data-lucide="external-link" class="ml-2"></i></a>
+                    </div>
+                    
+                    <div class="3d-map-card bg-glass">
+                        <div class="card-image-wrapper">
+                            <img src="assets/images/topography.png" alt="Peta Relief Gunung Padang" class="location-map-img">
+                            <div class="map-coordinates-overlay">
+                                <span>107.0561° E / 6.9933° S</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW: VIRTUAL TOUR ==================== -->
+        <section id="view-tour" class="app-view">
+            <!-- Simulated 360 Viewport -->
+            <div class="tour-viewport" id="tour-viewport" style="background-image: url('assets/images/tour_bg.png');">
+                <div class="tour-overlay-vignette"></div>
+
+                <!-- Hotspots -->
+                <!-- Hotspot 1: Columnar jointing near terrace 1 -->
+                <div class="hotspot pulse-animation" style="top: 48%; left: 35%;" data-hotspot="columnar" title="Columnar Jointing">
+                    <div class="hotspot-trigger">
+                        <i data-lucide="plus"></i>
+                    </div>
+                    <div class="hotspot-card">
+                        <h4>Columnar Jointing</h4>
+                        <p>Batuan kekar lembaran alami berbentuk tiang segilima yang menjadi fondasi dasar teras.</p>
+                        <button class="btn-hotspot-detail" data-target="GP-001">Lihat Detail</button>
+                    </div>
+                </div>
+
+                <!-- Hotspot 2: Terraces structure -->
+                <div class="hotspot pulse-animation" style="top: 40%; left: 74%;" data-hotspot="teras2" title="Teras Utama">
+                    <div class="hotspot-trigger">
+                        <i data-lucide="info"></i>
+                    </div>
+                    <div class="hotspot-card">
+                        <h4>Struktur Teras II</h4>
+                        <p>Area pemusatan batuan andesit berukuran besar yang diduga sebagai pusat peribadatan purba.</p>
+                        <button class="btn-hotspot-detail" data-target="GP-502">Lihat Detail</button>
+                    </div>
+                </div>
+
+                <!-- Tour Left HUD Controls -->
+                <div class="tour-hud-left">
+                    <div class="hud-group">
+                        <button id="btn-zoom-in" class="hud-btn" title="Zoom In"><i data-lucide="zoom-in"></i></button>
+                        <button id="btn-zoom-out" class="hud-btn" title="Zoom Out"><i data-lucide="zoom-out"></i></button>
+                        <button id="btn-fullscreen" class="hud-btn" title="Layar Penuh"><i data-lucide="maximize"></i></button>
+                    </div>
+                    <div class="hud-group mt-3">
+                        <button id="btn-compass" class="hud-btn btn-active" title="Kompas Arah"><i data-lucide="compass"></i></button>
+                        <button id="btn-sound-guide" class="hud-btn" title="Panduan Audio (Ambient)"><i data-lucide="volume-x"></i></button>
+                    </div>
+                </div>
+
+                <!-- Tour Right HUD: Minimap -->
+                <div class="tour-hud-right">
+                    <div class="minimap-container bg-glass">
+                        <div class="minimap-header flex-row justify-between align-center">
+                            <span>Peta Situs</span>
+                            <button id="btn-toggle-minimap" class="minimap-toggle-btn"><i data-lucide="chevron-down"></i></button>
+                        </div>
+                        <div class="minimap-content">
+                            <img src="assets/images/minimap.png" alt="Minimap Gunung Padang" class="minimap-img">
+                            <!-- Syncing dots for terraces -->
+                            <div class="minimap-dot active" id="minimap-dot" style="top: 75%; left: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tour Bottom HUD Navigation -->
+                <div class="tour-hud-bottom">
+                    <div class="terrace-scroller bg-glass">
+                        <button class="terrace-nav-btn active" data-terrace="0" data-x="50%" data-y="75%">
+                            <i data-lucide="home"></i> Gerbang Masuk
+                        </button>
+                        <button class="terrace-nav-btn" data-terrace="1" data-x="50%" data-y="65%">
+                            <i data-lucide="navigation"></i> Tangga Utama
+                        </button>
+                        <button class="terrace-nav-btn" data-terrace="2" data-x="48%" data-y="52%">
+                            <i data-lucide="layers"></i> Teras 1
+                        </button>
+                        <button class="terrace-nav-btn" data-terrace="3" data-x="46%" data-y="40%">
+                            <i data-lucide="layers"></i> Teras 2
+                        </button>
+                        <button class="terrace-nav-btn" data-terrace="4" data-x="44%" data-y="28%">
+                            <i data-lucide="layers"></i> Teras 3
+                        </button>
+                        <button class="terrace-nav-btn" data-terrace="5" data-x="42%" data-y="15%">
+                            <i data-lucide="layers"></i> Teras 4
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW: KOLEKSI ==================== -->
+        <section id="view-koleksi" class="app-view">
+            <!-- Megalithic Site Map & Info Header -->
+            <div class="section-container bg-dark-alt pt-24">
+                <div class="container text-center">
+                    <h2 class="section-title">Situs Megalitik Terbesar</h2>
+                    <p class="section-subtitle max-w-3xl">Eksplorasi interaktif lima teras utama Gunung Padang. Klik pada area teras untuk mempelajari sejarah dan misteri di baliknya.</p>
+                    
+                    <!-- Interactive Site Diagram Map -->
+                    <div class="site-diagram-container">
+                        <div class="diagram-overlay"></div>
+                        <img src="assets/images/hero_bg.png" alt="Struktur Teras Gunung Padang" class="diagram-image">
+                        <!-- Pins on diagram -->
+                        <div class="diagram-pin pin-1 active" style="top: 75%; left: 48%;" data-terrace="0">
+                            <div class="pin-dot"></div>
+                            <span class="pin-tooltip">Gerbang Utama</span>
+                        </div>
+                        <div class="diagram-pin pin-2" style="top: 52%; left: 50%;" data-terrace="1">
+                            <div class="pin-dot"></div>
+                            <span class="pin-tooltip">Tangga Purba</span>
+                        </div>
+                        <div class="diagram-pin pin-3" style="top: 40%; left: 52%;" data-terrace="2">
+                            <div class="pin-dot"></div>
+                            <span class="pin-tooltip">Teras I</span>
+                        </div>
+                        <div class="diagram-pin pin-4" style="top: 32%; left: 54%;" data-terrace="3">
+                            <div class="pin-dot"></div>
+                            <span class="pin-tooltip">Teras II (Pusat)</span>
+                        </div>
+                        <div class="diagram-pin pin-5" style="top: 25%; left: 51%;" data-terrace="4">
+                            <div class="pin-dot"></div>
+                            <span class="pin-tooltip">Teras III & IV</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Archive Catalog -->
+            <div class="section-container">
+                <div class="container">
+                    <div class="archive-header flex-row justify-between align-end mb-8">
+                        <div>
+                            <span class="section-tag uppercase-spaced">Arsip Digital</span>
+                            <h3 class="section-title align-left margin-none">Koleksi Artefak & Struktur</h3>
+                        </div>
+                        <!-- Search & Filter Controls -->
+                        <div class="archive-controls">
+                            <div class="search-box">
+                                <i data-lucide="search"></i>
+                                <input type="text" id="archive-search" placeholder="Cari nomor REG atau nama...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Tab Filter -->
+                    <div class="filter-tabs-container">
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" data-filter="all">Semua</button>
+                            <button class="filter-tab" data-filter="andesit">Batu Andesit</button>
+                            <button class="filter-tab" data-filter="struktur">Struktur Teras</button>
+                            <button class="filter-tab" data-filter="artefak">Artefak</button>
+                            <button class="filter-tab" data-filter="dokumentasi">Dokumentasi</button>
+                            <button class="filter-tab" data-filter="udara">Foto Udara</button>
+                        </div>
+                    </div>
+
+                    <!-- Archive Cards Grid -->
+                    <div class="archive-grid" id="archive-grid">
+                        <!-- Card 1 -->
+                        <div class="archive-card" data-category="andesit">
+                            <div class="card-badge">Batu Andesit</div>
+                            <div class="card-img-container">
+                                <img src="assets/images/columnar_joint.png" alt="Columnar Jointing">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Columnar Jointing</h4>
+                                <p class="card-text text-muted">Struktur batu alam berbentuk tiang segi lima yang digunakan sebagai fondasi utama di Gunung Padang.</p>
+                                <div class="card-footer-info">
+                                    <span class="card-reg">REG: GP-001</span>
+                                    <button class="btn-link-detail" data-target="GP-001">Lihat Detail <i data-lucide="arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="archive-card" data-category="struktur">
+                            <div class="card-badge">Struktur Teras</div>
+                            <div class="card-img-container">
+                                <img src="assets/images/tour_bg.png" alt="Teras II (Pusat)">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Teras II (Pusat)</h4>
+                                <p class="card-text text-muted">Wilayah dengan konsentrasi susunan batu paling padat yang diduga sebagai tempat pelaksanaan ritual astronomi purba.</p>
+                                <div class="card-footer-info">
+                                    <span class="card-reg">REG: GP-502</span>
+                                    <button class="btn-link-detail" data-target="GP-502">Lihat Detail <i data-lucide="arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="archive-card" data-category="artefak">
+                            <div class="card-badge">Artefak</div>
+                            <div class="card-img-container">
+                                <img src="assets/images/batu_kujang.png" alt="Batu Kujang">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Batu Kujang</h4>
+                                <p class="card-text text-muted">Sebuah fragmen batu unik yang memiliki bentuk menyerupai senjata tradisional Jawa Barat (Kujang).</p>
+                                <div class="card-footer-info">
+                                    <span class="card-reg">REG: GP-003</span>
+                                    <button class="btn-link-detail" data-target="GP-003">Lihat Detail <i data-lucide="arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="archive-card" data-category="dokumentasi">
+                            <div class="card-badge">Dokumentasi</div>
+                            <div class="card-img-container">
+                                <img src="assets/images/topography.png" alt="Pela Topografi 3D">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Peta Topografi 3D</h4>
+                                <p class="card-text text-muted">Pemindaian digital terkini yang menunjukkan struktur bawah tanah Gunung Padang melalui georadar dan geolistrik.</p>
+                                <div class="card-footer-info">
+                                    <span class="card-reg">REG: GP-010</span>
+                                    <button class="btn-link-detail" data-target="GP-010">Lihat Detail <i data-lucide="arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="archive-card" data-category="udara">
+                            <div class="card-badge">Foto Udara</div>
+                            <div class="card-img-container">
+                                <img src="assets/images/hero_bg.png" alt="Panorama Puncak">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Panorama Puncak</h4>
+                                <p class="card-text text-muted">Visualisasi udara yang memperlihatkan orientasi astronomis Gunung Padang menghadap Gunung Gede di sebelah Utara.</p>
+                                <div class="card-footer-info">
+                                    <span class="card-reg">REG: GP-009</span>
+                                    <button class="btn-link-detail" data-target="GP-009">Lihat Detail <i data-lucide="arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="archive-card" data-category="andesit">
+                            <div class="card-badge">Batu Andesit</div>
+                            <div class="card-img-container">
+                                <img src="assets/images/andesit_berukir.png" alt="Andesit Berukir">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Andesit Berukir</h4>
+                                <p class="card-text text-muted">Salah satu balok andesit langka yang memiliki tanda goresan manual, dipercaya sebagai simbol budaya purbakala.</p>
+                                <div class="card-footer-info">
+                                    <span class="card-reg">REG: GP-042</span>
+                                    <button class="btn-link-detail" data-target="GP-042">Lihat Detail <i data-lucide="arrow-up-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="text-center mt-12">
+                        <button id="btn-load-more" class="btn btn-secondary">Muat Lebih Banyak Koleksi</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW: TIMELINE ==================== -->
+        <section id="view-timeline" class="app-view">
+            <!-- Timeline Hero Header -->
+            <div class="section-container bg-dark-alt pt-24" style="background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('assets/images/hero_bg.png'); background-size: cover; background-position: center;">
+                <div class="container text-center py-12">
+                    <span class="section-tag uppercase-spaced text-gold">Arsip Digital</span>
+                    <h2 class="section-title text-center text-4xl">Jejak Waktu Peradaban<br>Nusantara</h2>
+                    <p class="section-subtitle max-w-3xl text-center">Menjelajahi ribuan tahun sejarah Gunung Padang melalui data-data penanggalan arkeologi, penelitian multi-disiplin, dan visualisasi masa depan.</p>
+                </div>
+            </div>
+
+            <!-- Interactive Timeline Slider Section -->
+            <div class="section-container">
+                <div class="container">
+                    <h3 class="section-title align-left">Kronologi Situs</h3>
+                    <p class="desc-text text-muted max-w-2xl mb-8">Telusuri fase-fase penting dari pembentukan megalitikum hingga upaya pelestarian modern.</p>
+                    
+                    <!-- Timeline Navigator -->
+                    <div class="timeline-navigator-container">
+                        <div class="timeline-progress-line">
+                            <div class="timeline-progress-fill" style="width: 0%;"></div>
+                        </div>
+                        <div class="timeline-nav-points">
+                            <div class="nav-point active" data-index="0" data-year="~5000 SM">
+                                <div class="nav-point-circle"><i data-lucide="calendar"></i></div>
+                                <span class="nav-point-label">~5000 SM - 400 SM</span>
+                                <span class="nav-point-sub">Megalitikum</span>
+                            </div>
+                            <div class="nav-point" data-index="1" data-year="1914">
+                                <div class="nav-point-circle"><i data-lucide="eye"></i></div>
+                                <span class="nav-point-label">1914</span>
+                                <span class="nav-point-sub">Penemuan Awal</span>
+                            </div>
+                            <div class="nav-point" data-index="2" data-year="2011">
+                                <div class="nav-point-circle"><i data-lucide="shield"></i></div>
+                                <span class="nav-point-label">2011 - 2014</span>
+                                <span class="nav-point-sub">Penelitian Modern</span>
+                            </div>
+                            <div class="nav-point" data-index="3" data-year="Saat Ini">
+                                <div class="nav-point-circle"><i data-lucide="globe"></i></div>
+                                <span class="nav-point-label">Saat ini</span>
+                                <span class="nav-point-sub">Cagar Budaya</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Content Cards Slider -->
+                    <div class="timeline-slider-wrapper">
+                        <!-- Card index 0 -->
+                        <div class="timeline-card active" data-index="0">
+                            <div class="timeline-card-grid">
+                                <div class="timeline-card-info">
+                                    <span class="timeline-card-epoch">~5000 SM - 400 SM</span>
+                                    <h4>Fase Pembangunan Megalitikum</h4>
+                                    <p>Struktur punden berundak mulai didirikan di atas bukit vulkanik alami. Masyarakat zaman perunggu menggunakan balok-balok columnar jointing basaltik yang tersebar di bukit untuk menyusun teras-teras ritual keagamaan pemujaan leluhur.</p>
+                                    <ul class="timeline-bullets">
+                                        <li>Penyusunan batu andesit bertingkat 5 lantai</li>
+                                        <li>Orientasi khusus sejajar dengan matahari dan rasi bintang</li>
+                                        <li>Penetapan pilar pelindung tebing pembatas teras</li>
+                                    </ul>
+                                </div>
+                                <div class="timeline-card-img" style="background-image: url('assets/images/tour_bg.png');"></div>
+                            </div>
+                        </div>
+
+                        <!-- Card index 1 -->
+                        <div class="timeline-card" data-index="1">
+                            <div class="timeline-card-grid">
+                                <div class="timeline-card-info">
+                                    <span class="timeline-card-epoch">Tahun 1914</span>
+                                    <h4>Laporan Resmi Kebudayaan Belanda</h4>
+                                    <p>Arkeolog Belanda Nicolaas Johannes Krom merilis catatan pertamanya mengenai keberadaan susunan balok batu andesit kolosal di bukit Gunung Padang melalui buletin "Rapporten van de Oudheidkundige Dienst" (Laporan Dinas Purbakala).</p>
+                                    <ul class="timeline-bullets">
+                                        <li>Pencatatan awal reruntuhan punden berundak teras puncak</li>
+                                        <li>Deskripsi columnar jointing sebagai batuan megalitik</li>
+                                        <li>Identifikasi situs terlantar tertutup semak belukar</li>
+                                    </ul>
+                                </div>
+                                <div class="timeline-card-img" style="background-image: url('assets/images/hero_bg.png');"></div>
+                            </div>
+                        </div>
+
+                        <!-- Card index 2 -->
+                        <div class="timeline-card" data-index="2">
+                            <div class="timeline-card-grid">
+                                <div class="timeline-card-info">
+                                    <span class="timeline-card-epoch">2011 - 2014</span>
+                                    <h4>Penelitian Eksplorasi Georadar TTRM</h4>
+                                    <p>Tim Terpadu Riset Mandiri (TTRM) yang didukung pemerintah melakukan survei geofisika komprehensif, pengeboran tanah, dan penanggalan radiokarbon. Hasil penelitian memicu debat ilmiah internasional mengenai struktur bawah tanah bertingkat.</p>
+                                    <ul class="timeline-bullets">
+                                        <li>Penemuan ruang rongga bawah tanah di bawah teras 2</li>
+                                        <li>Carbon dating batuan sedimen mencapai kedalaman purbakala</li>
+                                        <li>Pengambilan sampel inti bor material perekat vulkanik</li>
+                                    </ul>
+                                </div>
+                                <div class="timeline-card-img" style="background-image: url('assets/images/topography.png');"></div>
+                            </div>
+                        </div>
+
+                        <!-- Card index 3 -->
+                        <div class="timeline-card" data-index="3">
+                            <div class="timeline-card-grid">
+                                <div class="timeline-card-info">
+                                    <span class="timeline-card-epoch">Era Modern</span>
+                                    <h4>Pengembangan Digital & Pelestarian Nasional</h4>
+                                    <p>Gunung Padang dipromosikan sebagai destinasi eduwisata sejarah global sekaligus dilestarikan secara ketat sebagai cagar budaya cagar alam nasional yang dilindungi undang-undang dari kerusakan struktur batuan megalitikum.</p>
+                                    <ul class="timeline-bullets">
+                                        <li>Digitalisasi digital pemetaan situs dalam 3D</li>
+                                        <li>Restorasi susunan balok andesit teras 1 sampai teras 5</li>
+                                        <li>Fasilitas pemandu wisata berbasis informasi digital</li>
+                                    </ul>
+                                </div>
+                                <div class="timeline-card-img" style="background-image: url('assets/images/andesit_berukir.png');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publications & Nalar Padang AI Side Panel -->
+            <div class="section-container bg-dark-alt">
+                <div class="container grid-2">
+                    <!-- Publications list -->
+                    <div class="publications-list-container">
+                        <span class="section-tag uppercase-spaced">Studi Akademik</span>
+                        <h3 class="section-title align-left">Publikasi Ilmiah</h3>
+                        <p class="desc-text text-muted mb-8">Kumpulan jurnal riset terakreditasi dari peneliti terkemuka.</p>
+                        
+                        <div class="pubs-list">
+                            <!-- Pub 1 -->
+                            <div class="pub-item bg-glass">
+                                <div class="pub-icon-wrapper"><i data-lucide="file-text" class="text-gold"></i></div>
+                                <div class="pub-info">
+                                    <div class="pub-meta"><span class="pub-badge text-green">TERVERIFIKASI</span> <span class="pub-date">Juli 2022</span></div>
+                                    <h4 class="pub-title">Analisis Penanggalan Karbon pada Lapisan Tanah Teras II</h4>
+                                    <p class="pub-authors text-muted">Dr. Danny Hilman Natawidjaja, et al.</p>
+                                </div>
+                                <button class="pub-download-btn" data-doc="carbon_dating"><i data-lucide="download"></i> Unduh PDF</button>
+                            </div>
+                            
+                            <!-- Pub 2 -->
+                            <div class="pub-item bg-glass">
+                                <div class="pub-icon-wrapper"><i data-lucide="file-text" class="text-gold"></i></div>
+                                <div class="pub-info">
+                                    <div class="pub-meta"><span class="pub-badge text-yellow">DRAF PENELITIAN</span> <span class="pub-date">Maret 2020</span></div>
+                                    <h4 class="pub-title">Rekonstruksi Arsitektur Struktur Megalithikum</h4>
+                                    <p class="pub-authors text-muted">Ali Akbar, M.Hum.</p>
+                                </div>
+                                <button class="pub-download-btn" data-doc="reconstruction"><i data-lucide="download"></i> Unduh PDF</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nalar Padang AI Widget -->
+                    <div class="ai-widget bg-glass border-gold">
+                        <div class="ai-widget-header flex-row align-center">
+                            <div class="ai-avatar"><i data-lucide="cpu"></i></div>
+                            <div>
+                                <h4>Nalar Padang AI</h4>
+                                <span class="ai-status">Asisten Penelitian Aktif</span>
+                            </div>
+                        </div>
+                        <div class="ai-widget-body" id="ai-widget-chat">
+                            <div class="chat-message ai">
+                                <p>Selamat datang di nalar penelitian. Apakah Anda ingin mengetahui lebih lanjut mengenai penanggalan karbon di Gunung Padang?</p>
+                            </div>
+                        </div>
+                        <div class="ai-widget-suggestions">
+                            <button class="ai-suggest-chip">Berapa usia Teras 2?</button>
+                            <button class="ai-suggest-chip">Bagaimana hasil penelitian terbaru?</button>
+                        </div>
+                        <div class="ai-widget-input-wrapper">
+                            <input type="text" id="ai-widget-input" placeholder="Tanyakan seputar publikasi ilmiah...">
+                            <button id="ai-widget-send"><i data-lucide="send"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multimedia Gallery Section -->
+            <div class="section-container">
+                <div class="container text-center">
+                    <h3 class="section-title text-center">Galeri Multimedia</h3>
+                    <!-- Gallery Filter -->
+                    <div class="gallery-tabs">
+                        <button class="gallery-tab active" data-gallery="all">Semua</button>
+                        <button class="gallery-tab" data-gallery="foto">Foto</button>
+                        <button class="gallery-tab" data-gallery="video">Video</button>
+                        <button class="gallery-tab" data-gallery="drone">Drone</button>
+                    </div>
+                    
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-type="foto">
+                            <img src="assets/images/tour_bg.png" alt="Galeri Foto 1">
+                            <div class="gallery-hover-overlay">
+                                <span>Teras Punden Berundak</span>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="foto">
+                            <img src="assets/images/hero_bg.png" alt="Galeri Foto 2">
+                            <div class="gallery-hover-overlay">
+                                <span>Puncak Gunung Gede Dari Punden</span>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="video">
+                            <img src="assets/images/topography.png" alt="Galeri Video 1">
+                            <div class="gallery-hover-overlay">
+                                <i data-lucide="play-circle"></i>
+                                <span>Animasi Pemindaian Bawah Tanah</span>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-type="drone">
+                            <img src="assets/images/andesit_berukir.png" alt="Galeri Drone 1">
+                            <div class="gallery-hover-overlay">
+                                <span>Tekstur Balok Batuan Kuno</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW: AI GUIDE ==================== -->
+        <section id="view-ai-guide" class="app-view">
+            <div class="section-container pt-24 min-h-screen-75 flex-row justify-center align-center">
+                <div class="container max-w-4xl">
+                    <div class="ai-guide-container bg-glass border-gold">
+                        <div class="ai-guide-sidebar">
+                            <div class="sidebar-header">
+                                <i data-lucide="bot"></i>
+                                <h4>Asisten Cagar Budaya</h4>
+                            </div>
+                            <div class="sidebar-topics">
+                                <button class="topic-btn active" data-topic="sejarah"><i data-lucide="book-open"></i> Asal-Usul Sejarah</button>
+                                <button class="topic-btn" data-topic="struktur"><i data-lucide="milestone"></i> Struktur 5 Teras</button>
+                                <button class="topic-btn" data-topic="kontroversi"><i data-lucide="message-square"></i> Kontroversi Usia</button>
+                                <button class="topic-btn" data-topic="kunjungan"><i data-lucide="map"></i> Panduan Kunjungan</button>
+                            </div>
+                            <div class="sidebar-footer">
+                                <p>Didukung oleh Nalar Padang AI v1.2</p>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-guide-chatbox">
+                            <div class="chatbox-header flex-row align-center justify-between">
+                                <div class="flex-row align-center">
+                                    <div class="guide-avatar-online"></div>
+                                    <div>
+                                        <h4>Nalar Padang AI</h4>
+                                        <span class="online-indicator">Online</span>
+                                    </div>
+                                </div>
+                                <button id="btn-clear-chat" title="Bersihkan Percakapan"><i data-lucide="trash-2"></i></button>
+                            </div>
+                            
+                            <div class="chatbox-messages" id="guide-chat-messages">
+                                <div class="chat-message ai">
+                                    <p>Halo! Saya Nalar Padang AI, asisten penelitian virtual Anda. Saya dibekali dengan database hasil ekskavasi, pemetaan topografi, dan jurnal arkeologi Gunung Padang.</p>
+                                </div>
+                                <div class="chat-message ai">
+                                    <p>Topik apa yang ingin Anda diskusikan hari ini? Silakan pilih topik di menu samping atau tanyakan langsung di bawah.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="chatbox-suggestions" id="guide-chat-suggestions">
+                                <button class="guide-suggest-chip">Siapa yang menemukan Gunung Padang?</button>
+                                <button class="guide-suggest-chip">Apakah benar usianya 20.000 tahun?</button>
+                                <button class="guide-suggest-chip">Apa fungsi utama teras kelima?</button>
+                            </div>
+                            
+                            <div class="chatbox-input-area">
+                                <input type="text" id="guide-chat-input" placeholder="Ketik pertanyaan Anda di sini...">
+                                <button id="guide-chat-send" aria-label="Kirim Pesan"><i data-lucide="send"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW: KONTAK ==================== -->
+        <section id="view-kontak" class="app-view">
+            <div class="section-container pt-24 min-h-screen-75">
+                <div class="container grid-2">
+                    <div class="contact-info-panel">
+                        <span class="section-tag uppercase-spaced">Hubungi Kami</span>
+                        <h2 class="section-title align-left">Layanan Informasi<br>Warisan Budaya</h2>
+                        <p class="desc-text text-muted mb-8">Punya pertanyaan riset, rencana kunjungan kelompok akademis, atau laporan perlindungan cagar budaya? Sampaikan pesan Anda.</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-detail-item">
+                                <div class="detail-icon"><i data-lucide="mail"></i></div>
+                                <div>
+                                    <h5>Email Resmi</h5>
+                                    <p class="text-muted">info@gunungpadangvirtual.id</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail-item mt-6">
+                                <div class="detail-icon"><i data-lucide="phone"></i></div>
+                                <div>
+                                    <h5>Telepon / BPCB DIY-Jabar</h5>
+                                    <p class="text-muted">+62 (263) 1234-5678</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail-item mt-6">
+                                <div class="detail-icon"><i data-lucide="map-pin"></i></div>
+                                <div>
+                                    <h5>Sekretariat Cagar Budaya</h5>
+                                    <p class="text-muted">Balai Pelestarian Kebudayaan Wilayah IX, Jl. Diponegoro No. 10, Bandung, Jawa Barat</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-panel bg-glass border-gold p-8">
+                        <form id="contact-form">
+                            <h3 class="form-title mb-6">Kirim Pesan</h3>
+                            
+                            <div class="form-group mb-4">
+                                <label for="contact-name">Nama Lengkap</label>
+                                <input type="text" id="contact-name" placeholder="Masukkan nama Anda..." required>
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <label for="contact-email">Alamat Email</label>
+                                <input type="email" id="contact-email" placeholder="Masukkan alamat email Anda..." required>
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <label for="contact-subject">Subjek</label>
+                                <select id="contact-subject">
+                                    <option value="umum">Informasi Umum & Wisata</option>
+                                    <option value="penelitian">Kolaborasi Riset Akademik</option>
+                                    <option value="pelestarian">Laporan Pelestarian / Cagar Budaya</option>
+                                    <option value="website">Masalah Teknis Website</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group mb-6">
+                                <label for="contact-message">Isi Pesan</label>
+                                <textarea id="contact-message" rows="5" placeholder="Tuliskan pesan Anda di sini..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-full">Kirim Pesan <i data-lucide="send" class="ml-2"></i></button>
+                        </form>
+                        <div id="contact-success" class="contact-success-msg hidden">
+                            <i data-lucide="check-circle" class="text-gold success-icon"></i>
+                            <h4>Pesan Terkirim!</h4>
+                            <p class="text-muted text-center mt-2">Terima kasih telah menghubungi kami. Tim administrasi atau Nalar Padang AI akan menanggapi pesan Anda secepatnya.</p>
+                            <button id="btn-reset-form" class="btn btn-secondary mt-6">Kirim Pesan Baru</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h4 class="footer-logo">Gunung Padang</h4>
+                <p class="footer-desc">Mewariskan misteri dan sejarah megalitik nusantara melalui teknologi digital interaktif tingkat lanjut.</p>
+                <p class="copyright-text mt-8">© 2026 Virtual Heritage Gunung Padang. All rights reserved.</p>
+            </div>
+            
+            <div class="footer-links-group">
+                <h5>Tautan Cepat</h5>
+                <ul class="footer-links">
+                    <li><a href="#beranda">Sitemap</a></li>
+                    <li><a href="#tour">Virtual Tour 3D</a></li>
+                    <li><a href="#koleksi">Daftar Koleksi</a></li>
+                    <li><a href="#timeline">Arsip Nasional</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links-group">
+                <h5>Media Sosial</h5>
+                <ul class="footer-links">
+                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://youtube.com" target="_blank">YouTube Channel</a></li>
+                    <li><a href="https://facebook.com" target="_blank">Facebook Page</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h5>Newsletter</h5>
+                <p class="text-muted text-sm mb-4">Dapatkan update terbaru seputar ekskavasi dan riset.</p>
+                <div class="newsletter-input-group">
+                    <input type="email" placeholder="Email Anda...">
+                    <button class="newsletter-btn"><i data-lucide="send"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-bar flex-row justify-between align-center">
+            <span></span>
+            <div class="footer-bottom-links">
+                <a href="#privacy">Kebijakan Privasi</a>
+                <a href="#terms">Syarat & Ketentuan</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Floating AI Chat Toggle Widget -->
+    <div class="floating-ai-widget">
+        <button id="floating-ai-toggle" class="floating-ai-btn" aria-label="Buka Asisten Nalar Padang AI">
+            <i data-lucide="message-square" class="icon-chat"></i>
+            <i data-lucide="x" class="icon-close hidden"></i>
+        </button>
+        
+        <div id="floating-chat-window" class="floating-chat-window bg-glass border-gold hidden">
+            <div class="chat-window-header flex-row align-center justify-between">
+                <div class="flex-row align-center">
+                    <div class="chat-avatar"><i data-lucide="cpu"></i></div>
+                    <div>
+                        <h5>Nalar Padang AI</h5>
+                        <span class="chat-subtitle">Pemandu Situs Portabel</span>
+                    </div>
+                </div>
+                <button id="floating-chat-close"><i data-lucide="minus"></i></button>
+            </div>
+            
+            <div class="chat-window-body" id="floating-chat-messages">
+                <div class="chat-message ai">
+                    <p>Halo! Saya Nalar Padang AI. Saya siap menemani perjalanan virtual Anda mengelilingi Gunung Padang. Ada yang bisa saya bantu jelaskan?</p>
+                </div>
+            </div>
+            
+            <div class="chat-window-input-group">
+                <input type="text" id="floating-chat-input" placeholder="Tanya tentang punden, usia, teras...">
+                <button id="floating-chat-send"><i data-lucide="send"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== DETAILED COLLECTION MODAL ==================== -->
+    <div id="collection-modal" class="modal-overlay hidden">
+        <div class="modal-content bg-glass border-gold">
+            <button class="modal-close" id="modal-close-btn"><i data-lucide="x"></i></button>
+            
+            <div class="modal-body-grid">
+                <div class="modal-visuals-panel">
+                    <div class="modal-tab-headers">
+                        <button class="modal-tab-btn active" data-tab="real">Foto Artefak</button>
+                        <button class="modal-tab-btn" data-tab="vector">Skema Gambar Kerja</button>
+                    </div>
+                    <div class="modal-tab-contents">
+                        <div class="modal-tab-pane active" id="pane-real">
+                            <img src="" alt="Artifact Image" id="modal-artifact-img" class="modal-main-img">
+                        </div>
+                        <div class="modal-tab-pane" id="pane-vector">
+                            <!-- Simulated blueprint technical drawing drawing via SVG -->
+                            <div class="technical-blueprint" id="modal-blueprint-svg">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-info-panel">
+                    <span id="modal-category" class="modal-tag uppercase-spaced">Kategori</span>
+                    <h3 id="modal-title" class="modal-title-text text-2xl font-serif">Nama Artefak</h3>
+                    <div class="modal-metadata-grid">
+                        <div class="meta-row"><strong>No. Registrasi:</strong> <span id="modal-reg-code">GP-000</span></div>
+                        <div class="meta-row"><strong>Lokasi Temuan:</strong> <span id="modal-location">Teras 1</span></div>
+                        <div class="meta-row"><strong>Perkiraan Era:</strong> <span id="modal-era">5000 SM</span></div>
+                        <div class="meta-row"><strong>Bahan Material:</strong> <span id="modal-material">Batuan Basaltis / Andesit</span></div>
+                    </div>
+                    
+                    <div class="modal-description-box">
+                        <h5>Deskripsi Arkeologis</h5>
+                        <p id="modal-desc" class="text-muted">Deskripsi lengkap dari artefak...</p>
+                    </div>
+                    
+                    <div class="modal-action-box flex-row gap-4 mt-6">
+                        <button id="btn-modal-ask-ai" class="btn btn-primary flex-1"><i data-lucide="cpu" class="mr-2"></i> Tanyakan ke Nalar Padang AI</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Scripts -->
+    <script src="js/ai-guide.js"></script>
+    <script src="js/virtual-tour.js"></script>
+    <script src="js/koleksi.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

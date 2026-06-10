@@ -44,20 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Set target active
             targetView.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Initialize view-specific behavior if necessary
-            if (cleanId === 'tour' && window.initVirtualTour) {
-                window.initVirtualTour();
-            }
-            if (cleanId === 'koleksi' && window.initKoleksi) {
-                window.initKoleksi();
-            }
-            if (cleanId === 'timeline' && window.initTimeline) {
-                window.initTimeline();
-            }
-            if (cleanId === 'ai-guide' && window.initAiGuide) {
-                window.initAiGuide();
-            }
         }
     }
 
@@ -203,4 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => toast.remove(), 300);
         }, 2000);
     }
+
+    // 9. Initialize all modules once on startup
+    if (window.initVirtualTour) window.initVirtualTour();
+    if (window.initKoleksi) window.initKoleksi();
+    if (window.initTimeline) window.initTimeline();
 });
